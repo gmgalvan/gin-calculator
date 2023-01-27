@@ -1,0 +1,50 @@
+basePath: /calculator/v1
+definitions:
+  entities.Operands:
+    properties:
+      quantities:
+        items:
+          type: integer
+        type: array
+    type: object
+  routes.Result:
+    properties:
+      result:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Calculator server API
+  title: Calculator API
+paths:
+  /sum:
+    post:
+      consumes:
+      - application/json
+      description: sum a list of integers
+      parameters:
+      - description: operands
+        in: body
+        name: operands
+        required: true
+        schema:
+          $ref: '#/definitions/entities.Operands'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.Result'
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: Sum integers
+      tags:
+      - basicOperations
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
